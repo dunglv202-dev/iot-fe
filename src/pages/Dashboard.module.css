@@ -1,0 +1,17 @@
+#content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.bulb-on {
+  color: gold;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(-1turn);
+  }
+}
+.fan-on {
+  color: red;
+  animation: spin 3s linear infinite;
+}

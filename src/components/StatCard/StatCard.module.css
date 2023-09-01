@@ -1,0 +1,28 @@
+.stat {
+  background: #fff;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.5rem;
+}
+.label {
+  margin: 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #787f8f;
+  grid-column: 2 span;
+}
+.figure {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.unit {
+  margin: 0 0 7px;
+}
+.judge {
+  font-size: 0.9rem;
+  color: rgb(219, 89, 89);
+  background: rgba(219, 89, 89, 0.1);
+  border-radius: 6px;
+  padding: 4px 10px;
+  display: inline-block;
+}
