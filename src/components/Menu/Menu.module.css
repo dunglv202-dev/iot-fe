@@ -1,0 +1,17 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-column: 3 span;
+}
+.theme-btn {
+  padding: 0.7rem;
+  background: white;
+  border-radius: 10px;
+}
+.light {
+  color: gold;
+}
+.dark {
+  color: var(--grey);
+}

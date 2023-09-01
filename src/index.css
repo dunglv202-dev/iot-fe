@@ -2,6 +2,8 @@
   --blue-light: #4e72e3;
   --blue: #4264d0;
   --blue-gradient: linear-gradient(140deg, #4e72e3, #4264d0);
+  --grey: #424652;
+  --light-grey: #787f8f;
 }
 
 html {

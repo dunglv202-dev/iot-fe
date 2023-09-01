@@ -1,5 +1,7 @@
 import Chart from "../components/Chart/Chart";
 import DeviceControl from "../components/DeviceControl/DeviceControl";
+import Menu from "../components/Menu/Menu";
+import SearchBox from "../components/SearchBox/SearchBox";
 import StatCard from "../components/StatCard/StatCard";
 import WelcomeCard from "../components/WelcomeCard/WelcomeCard";
 import styles from "./Dashboard.module.css";
@@ -10,6 +12,7 @@ import { PiFanLight, PiFanFill, PiLightbulbFilamentLight, PiLightbulbFilamentFil
 function DashboardPage() {
   return (
     <div id={styles["content"]}>
+      <Menu />
       <WelcomeCard />
       <StatCard label="Temperature" value="22" unit="degree" />
       <StatCard label="Humidity" value="92" unit="percent" />
