@@ -1,5 +1,5 @@
 function SensorDataPage() {
-  return <h1>SensorDataPage</h1>;
+  return <h1>Sensor Data</h1>;
 }
 
 export default SensorDataPage;

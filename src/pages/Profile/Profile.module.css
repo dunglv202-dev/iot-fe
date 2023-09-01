@@ -1,0 +1,29 @@
+.main-profile {
+  background: var(--blue-gradient);
+  color: white;
+  margin-top: 90px;
+  position: relative;
+  overflow: visible;
+  padding-top: 40px;
+}
+.main-profile .avatar {
+  width: 120px;
+  height: 120px;
+  border: solid 3px white;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  top: -80px;
+  left: calc(50% - 60px);
+}
+.main-profile .name {
+  text-align: center;
+  /* font-weight: normal; */
+  text-transform: uppercase;
+  font-size: 1.25rem;
+}
+.profile-details {
+  margin-top: 1.5rem;
+  background: white;
+  padding: 0;
+}

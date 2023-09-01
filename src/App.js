@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router";
 import "./App.css";
 import RootLayout from "./pages/RootLayout";
 import DashboardPage from "./pages/Dashboard";
-import ProfilePage from "./pages/Profile";
+import ProfilePage from "./pages/Profile/Profile";
 import SensorDataPage from "./pages/SensorData";
 import ActionHistoryPage from "./pages/ActionHistory";
 
