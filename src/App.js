@@ -3,7 +3,7 @@ import "./App.css";
 import RootLayout from "./pages/RootLayout";
 import DashboardPage from "./pages/Dashboard";
 import ProfilePage from "./pages/Profile/Profile";
-import SensorDataPage from "./pages/SensorData";
+import SensorDataPage from "./pages/SensorData/SensorData";
 import ActionHistoryPage from "./pages/ActionHistory/ActionHistory";
 
 function App() {

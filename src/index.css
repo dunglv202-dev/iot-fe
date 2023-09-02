@@ -1,9 +1,10 @@
 :root {
   --light-blue: #4e72e3;
   --blue: #4264d0;
-  --blue-gradient: linear-gradient(140deg, #4e72e3, #4264d0);
+  --blue-gradient: linear-gradient(140deg, var(--light-blue), var(--blue));
   --grey: #424652;
   --light-grey: #787f8f;
+  --grey-gradient: linear-gradient(140deg, var(--light-grey), var(--grey));
 }
 
 html {
