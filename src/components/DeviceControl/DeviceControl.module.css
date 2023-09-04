@@ -3,10 +3,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 .device__icon svg {
   height: 40px;
   width: 40px;
+  color: var(--grey);
 }
 .device__name {
   margin: 0;

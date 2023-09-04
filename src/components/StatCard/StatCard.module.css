@@ -1,7 +1,7 @@
 .stat {
   background: #fff;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 4fr;
   gap: 1.5rem;
 }
 .label {
@@ -14,9 +14,11 @@
 .figure {
   font-size: 1.5rem;
   font-weight: bold;
+  color: var(--grey);
 }
 .unit {
   margin: 0 0 7px;
+  color: var(--light-grey);
 }
 .judge {
   font-size: 0.9rem;
@@ -25,4 +27,10 @@
   border-radius: 6px;
   padding: 4px 10px;
   display: inline-block;
+}
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--grey);
 }
