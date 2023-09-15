@@ -21,13 +21,27 @@ const lightConfig = {
   low: 100,
   high: 200,
 };
+const chartData = {
+  labels: [],
+  data: [],
+};
 
 function DashboardPage() {
   const [sensorData, setSensorData] = useState({ temperature: "-", humidity: "-" });
   const client = useWebsocket("ws://localhost:8080/websocket");
   client.onConnect = () => {
     client.subscribe("/topic/dht", (message) => {
-      setSensorData(JSON.parse(message.body));
+      let receivedData = JSON.parse(message.body);
+      setSensorData(receivedData);
+      // chartData.labels.shift();
+      console.log(receivedData.timestamp);
+      chartData.labels.push(
+        new Intl.DateTimeFormat("en", {
+          timeStyle: "medium",
+        }).format(new Date(receivedData.timestamp))
+      );
+      // chartData.data.shift();
+      chartData.data.push(receivedData);
     });
   };
 
@@ -49,7 +63,7 @@ function DashboardPage() {
         unit="percent"
       />
       <StatCard label="Lighting" config={lightConfig} icon={<BsSun fontSize={38} />} value={120} unit="lux" />
-      <Chart />
+      <Chart {...chartData} />
       <DeviceControl
         label="Led"
         deviceId="led"

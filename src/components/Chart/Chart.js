@@ -45,39 +45,34 @@ export const options = {
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-export const data = {
-  labels,
-  datasets: [
+function Chart({ labels, data }) {
+  const datasets = [
     {
       label: "Temperature",
-      data: labels.map(() => Math.random() * 22 + 18),
+      data: data.map((record) => record.temperature),
       borderColor: "rgb(255, 99, 132)",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
       yAxisID: "temperature",
     },
     {
       label: "Humidity",
-      data: labels.map(() => Math.random() * 100),
+      data: data.map((record) => record.humidity),
       borderColor: "rgb(53, 162, 235)",
       backgroundColor: "rgba(53, 162, 235, 0.5)",
       yAxisID: "humidity",
     },
     {
       label: "Lighting",
-      data: labels.map(() => Math.random() * 100_000 + 50_000),
+      data: data.map((record) => record.lighting),
       borderColor: "rgb(255, 214, 68)",
       backgroundColor: "rgba(255, 214, 68, 0.5)",
       yAxisID: "lighting",
     },
-  ],
-};
+  ];
 
-function Chart() {
   return (
     <Card className={styles["chart"]}>
-      <Line options={options} data={data} />
+      <Line options={options} data={{ labels, datasets }} />
     </Card>
   );
 }
