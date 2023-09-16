@@ -28,14 +28,20 @@ export const options = {
       ticks: {
         display: false,
       },
+      suggestedMin: 20,
+      suggestedMax: 45,
     },
     humidity: {
       type: "linear",
       display: false,
+      suggestedMin: 60,
+      suggestedMax: 100,
     },
     lighting: {
       type: "linear",
       display: false,
+      suggestedMin: 100,
+      suggestedMax: 150,
     },
   },
   elements: {

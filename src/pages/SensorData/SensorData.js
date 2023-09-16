@@ -8,8 +8,20 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import DatePicker from "../../components/DatePicker/DatePicker";
 import Button from "../../components/Button/Button";
 import styles from "./SensorData.module.css";
+import { useEffect, useState } from "react";
+import { formatDate } from "../../utils/DateFormatter";
 
 function SensorDataPage() {
+  const [sensorDataHistory, setSensorDataHistory] = useState([]);
+
+  useEffect(() => {
+    async function fetchHistory() {
+      let history = await await fetch("http://localhost:8080/api/sensor/history").then((res) => res.json());
+      setSensorDataHistory(history);
+    }
+    fetchHistory();
+  }, []);
+
   return (
     <>
       <div className={styles["header"]}>
@@ -29,12 +41,14 @@ function SensorDataPage() {
           </TableRow>
         </TableHead>
         <TableBody className={styles["table__body"]}>
-          <TableRow>
-            <TableCell>now</TableCell>
-            <TableCell>20 degree</TableCell>
-            <TableCell>90%</TableCell>
-            <TableCell>50000 lux</TableCell>
-          </TableRow>
+          {sensorDataHistory.map((history) => (
+            <TableRow key={history.timestamp}>
+              <TableCell>{formatDate(new Date(history.timestamp))}</TableCell>
+              <TableCell>{history.temperature}°C</TableCell>
+              <TableCell>{history.humidity}%</TableCell>
+              <TableCell>{history.lighting} lux</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </>

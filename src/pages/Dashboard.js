@@ -9,6 +9,7 @@ import StatCard from "../components/StatCard/StatCard";
 import useWebsocket from "../hooks/useWebsocket";
 import styles from "./Dashboard.module.css";
 
+const MAX_CHART_POINT = 20;
 const tempConfig = {
   low: 18,
   high: 30,
@@ -42,6 +43,8 @@ function DashboardPage() {
       );
       // chartData.data.shift();
       chartData.data.push(receivedData);
+      chartData.labels = chartData.labels.slice(-MAX_CHART_POINT);
+      chartData.data = chartData.data.slice(-MAX_CHART_POINT);
     });
   };
 
