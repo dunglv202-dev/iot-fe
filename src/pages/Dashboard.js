@@ -28,7 +28,7 @@ const chartData = {
 };
 
 function DashboardPage() {
-  const [sensorData, setSensorData] = useState({ temperature: "-", humidity: "-" });
+  const [sensorData, setSensorData] = useState({ temperature: "-", humidity: "-", lighting: "-" });
   const client = useWebsocket("ws://localhost:8080/websocket");
   client.onConnect = () => {
     client.subscribe("/topic/dht", (message) => {
@@ -65,7 +65,13 @@ function DashboardPage() {
         value={sensorData.humidity}
         unit="percent"
       />
-      <StatCard label="Lighting" config={lightConfig} icon={<BsSun fontSize={38} />} value={120} unit="lux" />
+      <StatCard
+        label="Lighting"
+        config={lightConfig}
+        icon={<BsSun fontSize={38} />}
+        value={sensorData.lighting}
+        unit="lux"
+      />
       <Chart {...chartData} />
       <DeviceControl
         label="Led"

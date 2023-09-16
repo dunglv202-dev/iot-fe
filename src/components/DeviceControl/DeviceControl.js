@@ -5,18 +5,24 @@ import styles from "./DeviceControl.module.css";
 
 function DeviceControl({ deviceId, label, offIcon, onIcon }) {
   const [isOn, setIsOn] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleSwitch = async (e) => {
+    let state = e.target.checked;
     try {
-      let state = e.target.checked;
-      await fetch(`http://localhost:8080/api/devices/${deviceId}/state`, {
+      setIsDisabled(true);
+      setIsOn(state);
+      let resp = await fetch(`http://localhost:8080/api/devices/${deviceId}/state`, {
         method: "POST",
         body: state ? "on" : "off",
       });
-      setIsOn(state);
+      if (!resp.ok) throw new Error("Something went wrong!");
     } catch (e) {
       alert("Could not change device state");
+      setIsOn((prev) => !prev);
       console.error(e);
+    } finally {
+      setIsDisabled(false);
     }
   };
 
@@ -25,7 +31,7 @@ function DeviceControl({ deviceId, label, offIcon, onIcon }) {
       <div className={styles["device__icon"]}>{isOn ? onIcon : offIcon}</div>
       <h2 className={styles["device__name"]}>{label}</h2>
       <div className={styles["actions"]}>
-        <Switch checked={isOn} onChange={handleSwitch} />
+        <Switch checked={isOn} onChange={handleSwitch} disabled={isDisabled} />
       </div>
     </Card>
   );
