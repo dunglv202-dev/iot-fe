@@ -7,9 +7,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import DatePicker from "../../components/DatePicker/DatePicker";
 import Button from "../../components/Button/Button";
-import styles from "./SensorData.module.css";
 import { useEffect, useState } from "react";
 import { formatDate } from "../../utils/DateFormatter";
+import styles from "../../components/Table/Table.module.css";
 
 function SensorDataPage() {
   const [sensorDataHistory, setSensorDataHistory] = useState([]);
