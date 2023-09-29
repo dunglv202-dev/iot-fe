@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CiTempHigh } from "react-icons/ci";
 import { PiFanFill, PiFanLight, PiLightbulbFilamentFill, PiLightbulbFilamentLight } from "react-icons/pi";
 import { BsDroplet, BsSun } from "react-icons/bs";
@@ -22,31 +22,47 @@ const lightConfig = {
   low: 100,
   high: 200,
 };
-const chartData = {
-  labels: [],
-  data: [],
-};
 
 function DashboardPage() {
   const [sensorData, setSensorData] = useState({ temperature: "-", humidity: "-", lighting: "-" });
+  const [chartData, setChartData] = useState({
+    labels: [],
+    data: [],
+  });
   const client = useWebsocket("ws://localhost:8080/websocket");
   client.onConnect = () => {
     client.subscribe("/topic/dht", (message) => {
       let receivedData = JSON.parse(message.body);
       setSensorData(receivedData);
       // chartData.labels.shift();
-      console.log(receivedData.timestamp);
-      chartData.labels.push(
+      let newChartData = { ...chartData };
+      newChartData.labels.push(
         new Intl.DateTimeFormat("en", {
           timeStyle: "medium",
         }).format(new Date(receivedData.timestamp))
       );
       // chartData.data.shift();
-      chartData.data.push(receivedData);
-      chartData.labels = chartData.labels.slice(-MAX_CHART_POINT);
-      chartData.data = chartData.data.slice(-MAX_CHART_POINT);
+      newChartData.data.push(receivedData);
+      newChartData.labels = chartData.labels.slice(-MAX_CHART_POINT);
+      newChartData.data = chartData.data.slice(-MAX_CHART_POINT);
+      setChartData(newChartData);
     });
   };
+
+  useEffect(() => {
+    async function fetchHistory() {
+      let history = await await fetch("http://localhost:8080/api/sensor/history").then((res) => res.json());
+      setChartData({
+        labels: history.map((h) =>
+          new Intl.DateTimeFormat("en", {
+            timeStyle: "medium",
+          }).format(new Date(h.timestamp))
+        ),
+        data: history.map((h) => ({ temperature: h.temperature, humidity: h.humidity, lighting: h.lighting })),
+      });
+    }
+    fetchHistory();
+  }, []);
 
   return (
     <div id={styles["content"]}>
