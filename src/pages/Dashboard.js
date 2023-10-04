@@ -51,14 +51,14 @@ function DashboardPage() {
 
   useEffect(() => {
     async function fetchHistory() {
-      let history = await await fetch("http://localhost:8080/api/sensor/history").then((res) => res.json());
+      let resp = await fetch("http://localhost:8080/api/sensor/history").then((res) => res.json());
       setChartData({
-        labels: history.map((h) =>
+        labels: resp.data.map((h) =>
           new Intl.DateTimeFormat("en", {
             timeStyle: "medium",
           }).format(new Date(h.timestamp))
         ),
-        data: history.map((h) => ({ temperature: h.temperature, humidity: h.humidity, lighting: h.lighting })),
+        data: resp.data.map((h) => ({ temperature: h.temperature, humidity: h.humidity, lighting: h.lighting })),
       });
     }
     fetchHistory();

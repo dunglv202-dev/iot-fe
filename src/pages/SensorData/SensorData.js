@@ -10,17 +10,26 @@ import Button from "../../components/Button/Button";
 import { useEffect, useState } from "react";
 import { formatDate } from "../../utils/DateFormatter";
 import styles from "../../components/Table/Table.module.css";
+import pagination from "../../components/Pagination/Pagination.module.css";
+import { Pagination } from "@mui/material";
 
 function SensorDataPage() {
   const [sensorDataHistory, setSensorDataHistory] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+
+  const handleChange = (_, value) => {
+    setPage(value);
+  };
 
   useEffect(() => {
     async function fetchHistory() {
-      let history = await await fetch("http://localhost:8080/api/sensor/history").then((res) => res.json());
-      setSensorDataHistory(history);
+      let resp = await fetch(`http://localhost:8080/api/sensor/history?page=${page - 1}`).then((res) => res.json());
+      setSensorDataHistory(resp.data);
+      setTotalPage(resp.totalPage);
     }
     fetchHistory();
-  }, []);
+  }, [page, totalPage]);
 
   return (
     <>
@@ -34,23 +43,26 @@ function SensorDataPage() {
       <Table>
         <TableHead className={styles["table__head"]}>
           <TableRow>
-            <TableCell>Timestamp</TableCell>
             <TableCell>Temperature</TableCell>
             <TableCell>Humidity</TableCell>
             <TableCell>Lighting</TableCell>
+            <TableCell>Timestamp</TableCell>
           </TableRow>
         </TableHead>
         <TableBody className={styles["table__body"]}>
           {sensorDataHistory.map((history) => (
             <TableRow key={history.timestamp}>
-              <TableCell>{formatDate(new Date(history.timestamp))}</TableCell>
               <TableCell>{history.temperature}°C</TableCell>
               <TableCell>{history.humidity}%</TableCell>
               <TableCell>{history.lighting} lux</TableCell>
+              <TableCell>{formatDate(new Date(history.timestamp))}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      <div className={pagination["pagination"]}>
+        <Pagination count={totalPage} page={page} onChange={handleChange} />
+      </div>
     </>
   );
 }
