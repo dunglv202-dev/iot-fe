@@ -10,7 +10,7 @@ const useWebsocket = (url) => {
 
   useEffect(() => {
     client.activate();
-  }, [url]);
+  }, [url, client]);
 
   return client;
 };

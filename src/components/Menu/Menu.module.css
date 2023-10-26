@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  grid-column: 3 span;
+  grid-column: 4 span;
 }
 .theme-btn {
   padding: 0.7rem;

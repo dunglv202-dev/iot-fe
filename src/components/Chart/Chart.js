@@ -34,7 +34,7 @@ export const options = {
     humidity: {
       type: "linear",
       display: false,
-      suggestedMin: 70,
+      suggestedMin: 50,
       suggestedMax: 85,
     },
     lighting: {
@@ -42,6 +42,12 @@ export const options = {
       display: false,
       suggestedMin: 100,
       suggestedMax: 150,
+    },
+    dustLevel: {
+      type: "linear",
+      display: false,
+      suggestedMin: 50,
+      suggestedMax: 90,
     },
   },
   elements: {
@@ -73,6 +79,13 @@ function Chart({ labels, data }) {
       borderColor: "rgb(255, 214, 68)",
       backgroundColor: "rgba(255, 214, 68, 0.5)",
       yAxisID: "lighting",
+    },
+    {
+      label: "Dust Level",
+      data: data.map((record) => record.dustLevel),
+      borderColor: "rgb(137, 151, 169)",
+      backgroundColor: "rgba(137, 151, 169, 0.5)",
+      yAxisID: "dustLevel",
     },
   ];
 

@@ -2,10 +2,18 @@ import { Switch } from "@mui/material";
 import { useState } from "react";
 import Card from "../Ui/Card";
 import styles from "./DeviceControl.module.css";
+import useWebsocket from "../../hooks/useWebsocket";
 
 function DeviceControl({ deviceId, label, offIcon, onIcon }) {
   const [isOn, setIsOn] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+  const client = useWebsocket("ws://localhost:8080/websocket");
+
+  client.onConnect = () => {
+    client.subscribe(`/topic/esp8266/${deviceId}/state`, (message) => {
+      setIsOn(message.body === "on");
+    });
+  };
 
   const handleSwitch = async (e) => {
     let state = e.target.checked;

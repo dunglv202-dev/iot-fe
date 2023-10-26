@@ -1,6 +1,6 @@
 .chart {
-  grid-column: 2 span;
-  grid-row: 2 span;
+  grid-column: 3 span;
+  grid-row: 3 span;
   background: #fff;
   min-height: 100px;
 }

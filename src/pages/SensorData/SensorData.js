@@ -22,6 +22,7 @@ function SensorDataPage() {
     dateRange: { from: null, to: null },
     tempRange: { from: 0, to: 100 },
     hudRange: { from: 0, to: 100 },
+    lightRange: { from: 0, to: 1024 },
   });
 
   const handleChange = (_, value) => {
@@ -31,6 +32,9 @@ function SensorDataPage() {
     setFilter({ ...filter, tempRange: { from: newVal[0], to: newVal[1] } });
   };
   const handleHudRangeChange = (_, newVal) => {
+    setFilter({ ...filter, hudRange: { from: newVal[0], to: newVal[1] } });
+  };
+  const handleLightRangeChange = (_, newVal) => {
     setFilter({ ...filter, hudRange: { from: newVal[0], to: newVal[1] } });
   };
   const fetchHistory = async () => {
@@ -44,6 +48,8 @@ function SensorDataPage() {
           maxTemp: filter.tempRange.to,
           minHud: filter.hudRange.from,
           maxHud: filter.hudRange.to,
+          minLight: filter.lightRange.from,
+          maxLight: filter.lightRange.to,
         })
     ).then((res) => res.json());
     console.log(resp.data);
@@ -58,7 +64,7 @@ function SensorDataPage() {
   return (
     <>
       <div className={styles["header"]}>
-        <Box sx={{ width: 300 }}>
+        <Box sx={{ width: 200 }}>
           <Typography>Temperature</Typography>
           <Slider
             value={[filter.tempRange.from, filter.tempRange.to]}
@@ -66,11 +72,19 @@ function SensorDataPage() {
             valueLabelDisplay="auto"
           />
         </Box>
-        <Box sx={{ width: 300 }}>
+        <Box sx={{ width: 200 }}>
           <Typography>Humidity</Typography>
           <Slider
             value={[filter.hudRange.from, filter.hudRange.to]}
             onChange={handleHudRangeChange}
+            valueLabelDisplay="auto"
+          />
+        </Box>
+        <Box sx={{ width: 200 }}>
+          <Typography>Humidity</Typography>
+          <Slider
+            value={[filter.lightRange.from, filter.lightRange.to]}
+            onChange={handleLightRangeChange}
             valueLabelDisplay="auto"
           />
         </Box>
@@ -98,6 +112,7 @@ function SensorDataPage() {
             <TableCell>Temperature</TableCell>
             <TableCell>Humidity</TableCell>
             <TableCell>Lighting</TableCell>
+            <TableCell>Dust Level</TableCell>
             <TableCell>Timestamp</TableCell>
           </TableRow>
         </TableHead>
@@ -107,6 +122,7 @@ function SensorDataPage() {
               <TableCell>{history.temperature}°C</TableCell>
               <TableCell>{history.humidity}%</TableCell>
               <TableCell>{history.lighting} lux</TableCell>
+              <TableCell>{history.dustLevel}%</TableCell>
               <TableCell>{formatDate(new Date(history.timestamp))}</TableCell>
             </TableRow>
           ))}

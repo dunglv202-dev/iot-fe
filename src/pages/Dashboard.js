@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import { CiTempHigh } from "react-icons/ci";
-import { PiFanFill, PiFanLight, PiLightbulbFilamentFill, PiLightbulbFilamentLight } from "react-icons/pi";
+import {
+  PiFanFill,
+  PiFanLight,
+  PiLightbulbFilamentFill,
+  PiLightbulbFilamentLight,
+  PiWarningLight,
+  PiWarningFill,
+} from "react-icons/pi";
+import { SiSonarcloud } from "react-icons/si";
 import { BsDroplet, BsSun } from "react-icons/bs";
 import Chart from "../components/Chart/Chart";
 import DeviceControl from "../components/DeviceControl/DeviceControl";
@@ -8,6 +16,7 @@ import Menu from "../components/Menu/Menu";
 import StatCard from "../components/StatCard/StatCard";
 import useWebsocket from "../hooks/useWebsocket";
 import styles from "./Dashboard.module.css";
+import DeviceState from "../components/DeviceState/DeviceState";
 
 const MAX_CHART_POINT = 20;
 const tempConfig = {
@@ -20,11 +29,15 @@ const humidConfig = {
 };
 const lightConfig = {
   low: 100,
-  high: 200,
+  high: 1000,
+};
+const dustConfig = {
+  low: 20,
+  high: 80,
 };
 
 function DashboardPage() {
-  const [sensorData, setSensorData] = useState({ temperature: "-", humidity: "-", lighting: "-" });
+  const [sensorData, setSensorData] = useState({ temperature: "-", humidity: "-", lighting: "-", dustLevel: "-" });
   const [chartData, setChartData] = useState({
     labels: [],
     data: [],
@@ -88,6 +101,13 @@ function DashboardPage() {
         value={sensorData.lighting}
         unit="lux"
       />
+      <StatCard
+        label="Dust"
+        config={dustConfig}
+        icon={<SiSonarcloud fontSize={38} />}
+        value={sensorData.dustLevel}
+        unit="percent"
+      />
       <Chart {...chartData} />
       <DeviceControl
         label="Led"
@@ -100,6 +120,11 @@ function DashboardPage() {
         deviceId="fan"
         offIcon={<PiFanLight className={styles["fan-off"]} />}
         onIcon={<PiFanFill className={styles["fan-on"]} />}
+      />
+      <DeviceState
+        deviceId="warning_led"
+        offIcon={<PiWarningLight />}
+        onIcon={<PiWarningFill className={styles["warning-on"]} />}
       />
     </div>
   );
